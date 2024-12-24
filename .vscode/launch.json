@@ -7,13 +7,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/otel/instrument.ts",
-      "preLaunchTask": "tsc: build - tsconfig.json",
+      "name": "Debug TypeScript Module",
+      "program": "${file}",
+      "preLaunchTask": "tsc: build - tsconfig.json", // Debug前にtsconfigの設定でコンパイルする
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "resolveSourceMapLocations": [
+      "resolveSourceMapLocations": [ //ソースマップがある場所を指定
         "${workspaceFolder}/**",
-        "!**/node_modules/**"
+        "**/node_modules/**"
       ],
       "sourceMaps": true
     }
