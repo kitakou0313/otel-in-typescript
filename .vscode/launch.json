@@ -8,14 +8,14 @@
       "type": "node",
       "request": "launch",
       "name": "Debug TypeScript Module",
-      "program": "${file}",
+      "program": "${file}", // Editorで開いているファイルを指定
       "preLaunchTask": "tsc: build - tsconfig.json", // Debug前にtsconfigの設定でコンパイルする
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "resolveSourceMapLocations": [ //ソースマップがある場所を指定
+      "resolveSourceMapLocations": [ //ソースマップがある場所を指定 ここでの指定が必須
         "${workspaceFolder}/**",
         "**/node_modules/**"
       ],
-      "sourceMaps": true
+      "sourceMaps": true // source mapによる遷移を有効にする
     }
   ]
 }
