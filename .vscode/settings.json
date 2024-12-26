@@ -1,0 +1,4 @@
+{
+    "javascript.preferGoToSourceDefinition": true, //Go to DefinitionでJSのコードに遷移する
+    "typescript.preferGoToSourceDefinition": true
+}
