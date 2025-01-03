@@ -6,7 +6,6 @@ import {
     ConsoleMetricExporter,
 } from "@opentelemetry/sdk-metrics"
 import * as api from "@opentelemetry/api";
-import { log } from "console";
 
 // activate SDK and Set ContextManager
 const sdk = new NodeSDK({
@@ -33,7 +32,7 @@ console.log(ctx1.getValue(key))
 // api.context.withで引数に与えたcontextをactiveなcontextとして実行できる
 // context.withの実装はContextManagerのwithを呼び出している
 // ContextManagerのwithメソッド内部ではAsyncLocalStorage.runをcontextを引数にして呼びだしている
-api.context.with(ctx1.setValue(key, "context2"), () => {
+api.context.with(ctx1.setValue(key, "context 2"), () => {
     console.log(api.context.active().getValue(key))
 
     api.context.with(ctx1.setValue(key, "context 3"), () => {
