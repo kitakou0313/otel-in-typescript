@@ -7,6 +7,7 @@ for (let index = 0; index < 5; index++) {
     asyncLocalStorage.run( index , () => {
         // AsyncLocalStorage.getStore()の返り値でAsyncLocalStorage.run()の第一引数に与えた値を取得できる
         // 値はrun実行時の時の値が得られる
+        // 上記はその非同期処理内で実行される非同期処理でも同様に扱える
         const indexInAsyncOperation = asyncLocalStorage.getStore()
         
         const delayNumMs = 5  * Math.random()
@@ -14,7 +15,12 @@ for (let index = 0; index < 5; index++) {
 
         setTimeout(() => {
             const indexInAsyncOperation = asyncLocalStorage.getStore()
-            console.log(`${indexInAsyncOperation}:end`)
+            console.log(`${indexInAsyncOperation}:middle`)
+
+            setTimeout(() => {
+                const indexInAsyncOperation = asyncLocalStorage.getStore()
+                console.log(`${indexInAsyncOperation}:end`)
+            }, delayNumMs * 1000)
         },  delayNumMs * 1000);
     })
 
