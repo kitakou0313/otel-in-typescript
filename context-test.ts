@@ -32,11 +32,17 @@ console.log(ctx1.getValue(key))
 // api.context.withで引数に与えたcontextをactiveなcontext(api.context.active()の引数で返されるContextのインスタンス)として実行できる
 // context.withの実装はContextManagerのwithを呼び出している
 // ContextManagerのwithメソッド内部ではAsyncLocalStorage.runをcontextを引数にして呼びだしている
-api.context.with(ctx1.setValue(key, "context 2"), () => {
+const ctx2 = api.context.active().setValue(key, "context 2")
+api.context.with(ctx2, () => {
+    // Active ContextはContext 2
     console.log(api.context.active().getValue(key))
 
-    api.context.with(ctx1.setValue(key, "context 3"), () => {
+    const ctx3 = api.context.active().setValue(key, "context 3")
+    api.context.with(ctx3, () => {
+        // Active ContextはContext 3
         console.log(api.context.active().getValue(key))
     })
+
+    // context 2に戻っている
     console.log(api.context.active().getValue(key))
 })
