@@ -15,6 +15,13 @@ for (let index = 0; index < 5; index++) {
         setTimeout(() => {
             const mapInsideAsyncOpe = asyncLocalStorage.getStore() as Map<string, string>
             console.log(mapInsideAsyncOpe.get(KEY))
+
+            // Callback関数内から実行された非同期処理内でも同じMapを利用できる
+            setTimeout(() => {
+                const mapInsideAsyncOpe = asyncLocalStorage.getStore() as Map<string, string>
+                console.log(mapInsideAsyncOpe.get(KEY))
+            })
+
         }, delayNumSecond * 1000)
     })
 }
