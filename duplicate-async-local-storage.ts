@@ -1,22 +1,20 @@
 import { AsyncLocalStorage } from "async_hooks";
 
-const asyncLocalStorage = new AsyncLocalStorage()
+const asyncLocalStorage = new AsyncLocalStorage<Map<string, string>>()
+
+const KEY = "key"
 
 for (let index = 0; index < 5; index++) {
     const delayNumSecond = 5 * Math.random()
 
-    setTimeout(() => {
-        const str = `case-${index}-1`
-        asyncLocalStorage.run(str, () => {
-            const strInLevel1 = asyncLocalStorage.getStore()
-            console.log(strInLevel1)
-    
-            const strInLevel2 = `${str}-2`
-            asyncLocalStorage.run(strInLevel2, () => {
-                const strInLevel2 = asyncLocalStorage.getStore()
-                console.log(strInLevel2)
-            })
-        })
-    }, delayNumSecond * 1000)
-    
+    // 非同期処理毎にMapを生成する
+    const mapPerAsyncOpe = new Map<string, string>()
+    mapPerAsyncOpe.set(KEY, `in Operation with loop-${index}`)
+    // AsyncLocalStorage.runに引数として渡すことで，Callback関数の処理内で一貫してgetStoreメソッドによってそのMapを利用できる
+    asyncLocalStorage.run(mapPerAsyncOpe, () => {
+        setTimeout(() => {
+            const mapInsideAsyncOpe = asyncLocalStorage.getStore() as Map<string, string>
+            console.log(mapInsideAsyncOpe.get(KEY))
+        }, delayNumSecond * 1000)
+    })
 }
