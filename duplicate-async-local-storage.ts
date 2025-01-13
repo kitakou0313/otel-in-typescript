@@ -20,7 +20,7 @@ for (let index = 0; index < 5; index++) {
             setTimeout(() => {
                 const mapInsideAsyncOpe = asyncLocalStorage.getStore() as Map<string, string>
                 console.log(mapInsideAsyncOpe.get(KEY))
-            })
+            }, 1000)
 
         }, delayNumSecond * 1000)
     })
